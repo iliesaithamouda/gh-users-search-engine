@@ -1,0 +1,168 @@
+:host {
+  .search-form-wrapper {
+    width: 500px;
+    margin: 20px auto;
+    .search-form {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .search-field {
+        width: 550px;
+      }
+      .disabled {
+        color: rgba(0, 0, 0, 0.54);
+        fill: rgba(0, 0, 0, 0.54);
+      }
+      button {
+        width: 2em;
+        &.search {
+          width: 4em;
+          border: 1px solid rgb(9, 105, 218, 0.8);
+          border-radius: 3px;
+          border-top-left-radius: 0px;
+          background-color: rgb(9, 105, 218);
+          border-bottom-left-radius: 0px;
+          color: white;
+          height: 2.5em;
+        }
+      }
+    }
+  }
+
+  .users-table-wrapper {
+    max-width: 650px;
+    max-height: 900px;
+    overflow: auto;
+    margin: 0 auto;
+    .users-table {
+      width: 100%;
+      border-collapse: separate;
+      border-radius: 10px;
+      border: 1px solid rgb(208, 215, 222);
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 60px;
+        margin: 10px;
+      }
+      .repos {
+        padding: 5px;
+        margin: 10px 20px 10px 0;
+      }
+      .icon-wrapper svg {
+        width: 25px;
+        height: 25px;
+      }
+      .twitter {
+        margin: 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: rgb(9, 105, 218);
+      }
+
+      tr.mat-header-row {
+        height: 40px;
+      }
+
+      th {
+        background-color: rgb(246, 248, 250);
+      }
+      td {
+        text-align: left;
+      }
+
+      tr:first-child th:first-child {
+        border-top-left-radius: 10px;
+      }
+      tr:first-child th:last-child {
+        border-top-right-radius: 10px;
+      }
+
+      tr:last-child {
+        td {
+          border-bottom: 0px;
+          &:first-child {
+            border-bottom-left-radius: 10px;
+          }
+          &:last-child {
+            border-bottom-right-radius: 10px;
+          }
+        }
+      }
+
+      tr.example-detail-row {
+        height: 0;
+      }
+
+      tr.example-element-row:not(.example-expanded-row):hover {
+        background: whitesmoke;
+      }
+
+      tr.example-element-row:not(.example-expanded-row):active {
+        background: #efefef;
+      }
+
+      .example-element-detail {
+        font-size: 0.8rem;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 0;
+        // border-bottom-width: 0px;
+        height: 0px;
+        min-height: 0px;
+        transition: height 225ms ease-in-out;
+
+        .bio {
+          max-width: 300px;
+        }
+        .mat-badge {
+          margin: 12px;
+        }
+
+        .followers {
+          margin-left: 12px;
+        }
+      }
+
+      .expanded {
+        // display: table-cell;
+        // border-bottom-width: 1px;
+        height: 150px;
+        padding: 30px 0;
+      }
+
+      td.mat-footer-cell.mat-column-identity,
+      td.mat-footer-cell.mat-column-community {
+        display: none;
+      }
+    }
+  }
+}
+
+// credit to a stackOverflow user (can't find the correct Q&A)
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0 0 0 0.75em !important;
+}
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.6em 0 !important;
+  border-top: 0;
+}
+::ng-deep .mat-form-field-label-wrapper {
+  top: -1.5em;
+  font-size: 14px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label {
+  transform: translateY(-1.1em) scale(0);
+  width: 133.33333%;
+}

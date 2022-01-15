@@ -1,0 +1,146 @@
+<div class="search-users">
+  <div class="search-form-wrapper">
+    <form class="search-form" [formGroup]="searchForm">
+      <mat-form-field class="search-field" appearance="outline">
+        <!-- <mat-label>Clearable input</mat-label> -->
+        <input matInput type="text" formControlName="query" (keydown.enter)="filter($event)" placeholder="Search" />
+        <button
+          *ngIf="searchForm.get('query').value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="clearField('query')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <button
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          [disabled]="!searchForm.get('query').value || searchForm.get('query').value.length < 2"
+          [ngClass]="{ disabled: !searchForm.get('query').value || searchForm.get('query').value.length < 2 }"
+          class="search"
+          (click)="search()"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+
+<div class="users-table-wrapper">
+  <table mat-table multiTemplateDataRows [dataSource]="users" class="users-table">
+    <!-- avatar Column -->
+    <ng-container matColumnDef="avatar_url">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let user">
+        <img [src]="user.avatar_url" class="avatar" />
+      </td>
+    </ng-container>
+
+    <!-- username Column -->
+    <ng-container matColumnDef="identity">
+      <th mat-header-cell *matHeaderCellDef>Person</th>
+      <td mat-cell *matCellDef="let user">
+        <div class="identity" *ngIf="user.profile as profile">
+          <div class="username">
+            <a [href]="profile['html_url']" target="_blank">#{{ profile['login'] }}</a>
+          </div>
+          <div class="name">{{ profile['name'] }}</div>
+
+          <div class="email" *ngIf="profile['email']">Email: {{ profile['email'] }}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="community">
+      <th mat-header-cell *matHeaderCellDef>Community</th>
+      <td mat-cell *matCellDef="let user">
+        <div class="company" *ngIf="user.profile?.company">Company: {{ user.profile?.company }}</div>
+      </td>
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedBio">
+      <td mat-cell *matCellDef="let user" [attr.colspan]="2">
+        <div *ngIf="user" class="example-element-detail" [ngClass]="{ expanded: user == expandedElement }">
+          <div class="bio">{{ user.profile.bio }}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedSocial">
+      <td mat-cell *matCellDef="let user">
+        <div *ngIf="user" class="example-element-detail" [ngClass]="{ expanded: user == expandedElement }">
+          <div class="social">
+            <div class="repo-counts">
+              <span matBadge="{{ user.profile.public_repos }}" matBadgeColor="warn">
+                <svg
+                  aria-hidden="true"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  version="1.1"
+                  width="16"
+                  data-view-component="true"
+                  class="octicon octicon-repo mr-1 color-fg-muted"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"
+                  ></path>
+                </svg>
+              </span>
+              repositories
+            </div>
+            <div class="cdk-visually-hidden">this user has {{ user.profile.public_repos }} repositories</div>
+            <div class="twitter" *ngIf="user.profile.twitter_username">
+              <span class="icon-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 273.5 222.3"
+                  role="img"
+                  aria-labelledby="lo03u71htomb3ddy55cuvxg0ebor5l9"
+                  class="octicon"
+                >
+                  <title id="lo03u71htomb3ddy55cuvxg0ebor5l9">Twitter</title>
+                  <path
+                    d="M273.5 26.3a109.77 109.77 0 0 1-32.2 8.8 56.07 56.07 0 0 0 24.7-31 113.39 113.39 0 0 1-35.7 13.6 56.1 56.1 0 0 0-97 38.4 54 54 0 0 0 1.5 12.8A159.68 159.68 0 0 1 19.1 10.3a56.12 56.12 0 0 0 17.4 74.9 56.06 56.06 0 0 1-25.4-7v.7a56.11 56.11 0 0 0 45 55 55.65 55.65 0 0 1-14.8 2 62.39 62.39 0 0 1-10.6-1 56.24 56.24 0 0 0 52.4 39 112.87 112.87 0 0 1-69.7 24 119 119 0 0 1-13.4-.8 158.83 158.83 0 0 0 86 25.2c103.2 0 159.6-85.5 159.6-159.6 0-2.4-.1-4.9-.2-7.3a114.25 114.25 0 0 0 28.1-29.1"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </span>
+              {{ user.profile.twitter_username }}
+            </div>
+            <div class="followers" *ngIf="user.profile.followers">Followers: {{ user.profile.followers }}</div>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="paginator">
+      <td mat-footer-cell *matFooterCellDef [attr.colspan]="3">
+        <mat-paginator
+          [length]="searchResultLength"
+          [pageSize]="10"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="handlePageEvent($event)"
+          aria-label="Select page"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === row"
+      (click)="expandedElement = expandedElement === row ? null : row"
+    ></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedBio', 'expandedSocial']" class="example-detail-row"></tr>
+    <tr mat-footer-row *matFooterRowDef="['paginator']; sticky: true"></tr>
+  </table>
+</div>
