@@ -29,7 +29,7 @@ export class UsersResolver implements Resolve<SearchUsersResponse | { error: any
         );
       }),
       catchError((error) => {
-        this._snackBar.open(error, 'Splash', {
+        this._snackBar.open(error.message, 'close', {
           duration: 5 * 1000
         });
 
