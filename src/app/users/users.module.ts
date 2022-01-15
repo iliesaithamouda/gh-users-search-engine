@@ -12,6 +12,7 @@ import {
   MatPaginatorModule,
   MAT_PAGINATOR_DEFAULT_OPTIONS
 } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { UsersResolver } from './resolvers/users.resolver';
@@ -33,6 +34,7 @@ matForm = { ...MAT_PAGINATOR_DEFAULT_OPTIONS, formFieldAppearance: 'outline' };
     MatPaginatorModule,
     MatBadgeModule,
     MatRippleModule,
+    MatSnackBarModule,
     RouterModule.forChild([
       {
         path: '',
